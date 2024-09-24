@@ -57,3 +57,16 @@ app.put('/update/:id', async (req,res) => {
     await foundService.save();
     return res.status(200).json({message:"Service updated successfully"});
 })
+
+app.delete('/service/:id', async (req,res) => {
+
+    const id = req.params.id;
+    const deleteService = await Services.findByIdAndDelete(id);
+
+    if(!deleteService)
+       return res.status(404).json({message:"Service not found"});
+    
+    return res.status(200).json({message:"Service deleted successfully"});
+    
+
+})
