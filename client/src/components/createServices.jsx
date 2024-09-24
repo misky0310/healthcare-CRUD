@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 const CreateServicesPage = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -8,6 +9,10 @@ const CreateServicesPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if(!name || !description || !price){
+      toast.error("Please fill all the fields");
+    }
 
     fetch("http://localhost:5001/create", {
       method: "POST",
@@ -44,7 +49,6 @@ const CreateServicesPage = () => {
             type="text"
             id="name"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
             onChange={(e) => setName(e.target.value)}
           />
         </div>
@@ -59,7 +63,6 @@ const CreateServicesPage = () => {
             type="text"
             id="desc"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
@@ -74,7 +77,6 @@ const CreateServicesPage = () => {
             type="number"
             id="price"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
             onChange={(e) => setPrice(e.target.value)}
           />
         </div>

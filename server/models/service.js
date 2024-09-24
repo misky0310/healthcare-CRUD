@@ -13,6 +13,8 @@ const serviceSchema= new mongoose.Schema({
         type:Number,
         required:[true,"Service price is required"],
     }
+},{
+    timestamps:true
 })
 
 const Services = mongoose.model("services",serviceSchema);

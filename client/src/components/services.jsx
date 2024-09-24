@@ -27,13 +27,20 @@ const ServicesPage = () => {
       })
   };
 
+
   return (
-    <section className="bg-slate-800">
+    <section className="bg-slate-800 md:max-w-[1200px] md:mx-auto">
       <h1 className="text-center text-white text-3xl pt-5 pb-3">
         OUR SERVICES
       </h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 p-5">
+      {services.length === 0 && (
+          <div className="pt-10">
+            <p className="text-center text-xl text-white p-10 font-bold w-fit border-2 mx-auto">NO SERVICES AVAILABLE</p>
+          </div>
+        )}
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 p-5 w-fit">
         {services.map((service, index) => (
           <div key={index}>
             <div className="bg-white p-5 rounded-lg shadow-lg h-[100%] hover:scale-110 hover:cursor-pointer">
