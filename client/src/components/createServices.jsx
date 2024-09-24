@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 const CreateServicesPage = () => {
+  const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
 
-  const navigate=useNavigate();
-  const [name,setName]=useState('');
-  const [description,setDescription]=useState('');
-  const [price,setPrice]=useState('');
-
-  const handleSubmit= (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     fetch("http://localhost:5001/create", {
       method: "POST",
       headers: {
@@ -20,18 +19,20 @@ const CreateServicesPage = () => {
         description,
         price,
       }),
+    }).then(() => {
+      navigate("/");
     });
-
-    navigate('/');
-
-  }
+  };
 
   return (
     <>
       <h1 className="text-2xl font-semibold text-gray-900 dark:text-white text-center pt-10">
         Add a Service
       </h1>
-      <form onSubmit={handleSubmit} className="flex flex-col items-center w-full h-screen pt-10">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col items-center w-full h-screen pt-10"
+      >
         <div className="mb-5 md:w-1/3 w-1/2">
           <label
             htmlFor="name"

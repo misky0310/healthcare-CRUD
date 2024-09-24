@@ -24,9 +24,36 @@ app.post('/create', async (req, res) => {
     });
     
     await newService.save();
+    return res.status(201).json({message:"Service created successfully"});
 })
 
 app.get('/services', async (req,res) => {
     const services= await Services.find();
-    res.json(services);
+    return res.json(services);
+})
+
+app.get('/service/:id', async (req,res) => {
+    const id = req.params.id;
+    const foundService = await Services.findById(id);
+
+    if(!foundService)
+       return res.status(404).json({message:"Service not found"});
+    
+    return res.json(foundService);
+})
+
+app.put('/update/:id', async (req,res) => {
+    const {name, description, price}=req.body;
+    const id = req.params.id;
+    const foundService = await Services.findById(id);
+
+    if(!foundService)
+       return res.status(404).json({message:"Service not found"});
+    
+    foundService.name=name;
+    foundService.description=description;
+    foundService.price=price;
+
+    await foundService.save();
+    return res.status(200).json({message:"Service updated successfully"});
 })
