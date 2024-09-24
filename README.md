@@ -1,22 +1,41 @@
-# Healthcare Services Project
+# Project Title
 
-This project consists of two main parts:
-1. **Client**: Frontend application.
-2. **Server**: Backend API handling healthcare services data.
+A simple healthcare CRUD project
 
-## Prerequisites
-Before setting up and running the project, make sure you have the following installed on your machine:
+
+## Getting Started
+
+### Dependencies
+
+Before setting up and running the project, make sure you have the following installed:
 - [Node.js](https://nodejs.org/) (v12 or higher)
 - [npm](https://www.npmjs.com/) (comes with Node.js)
 
-## Setup Instructions
+### Installing
 
-### 1. Clone the repository
-Start by cloning the project repository to your local machine:
-git clone <url>
-cd <directory>
+ Start by cloning the project repository and navigate to the project directory:
+  ```
+   git clone <project-url>
+   cd <project-directory>
+  ```
+Install Client and Server Dependencies: Navigate to the client folder to install dependencies:
+```
+  cd client
+  npm install
 
-### 2. Install Client Dependencies
-Navigate to the client folder and install the required dependencies:
-cd client
-npm install
+  cd ../server
+  npm install
+```
+### Executing program
+
+Run Client and Server: In separate terminal windows, start both the client and the server.
+
+In the client folder, run:
+
+```
+npm run dev
+```
+In the server folder, run:
+```
+npm run start:dev
+```
