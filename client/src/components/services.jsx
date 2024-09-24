@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import CreateServicesPage from './createServices'
 
 const ServicesPage = () => {
 
@@ -48,6 +50,10 @@ const ServicesPage = () => {
           </div>
         ))}
       
+      </div>
+
+      <div className='flex justify-center pt-5 pb-5'>
+        <Link to={"/create"} className='border-2 border-green-500 px-5 py-2 rounded-lg bg-green-700 text-white hover:bg-green-900'>Add Service</Link>
       </div>
 
     </section>
