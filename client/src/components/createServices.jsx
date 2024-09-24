@@ -1,12 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 
 const CreateServicesPage = () => {
+
+
+  const [name,setName]=useState('');
+  const [description,setDescription]=useState('');
+  const [price,setPrice]=useState('');
+
+  const handleSubmit= (e) => {
+    e.preventDefault();
+    
+    fetch("http://localhost:5001/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        description,
+        price,
+      }),
+    });
+  }
+
   return (
     <>
       <h1 className="text-2xl font-semibold text-gray-900 dark:text-white text-center pt-10">
         Add a Service
       </h1>
-      <form className="flex flex-col items-center w-full h-screen pt-10">
+      <form onSubmit={handleSubmit} className="flex flex-col items-center w-full h-screen pt-10">
         <div className="mb-5 md:w-1/3 w-1/2">
           <label
             htmlFor="name"
@@ -15,10 +37,11 @@ const CreateServicesPage = () => {
             Service Name
           </label>
           <input
-            type="email"
+            type="text"
             id="name"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             required
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
         <div className="mb-5 md:w-1/3 w-1/2">
@@ -33,6 +56,7 @@ const CreateServicesPage = () => {
             id="desc"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             required
+            onChange={(e) => setDescription(e.target.value)}
           />
         </div>
         <div className="mb-5 md:w-1/3 w-1/2">
@@ -47,6 +71,7 @@ const CreateServicesPage = () => {
             id="price"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             required
+            onChange={(e) => setPrice(e.target.value)}
           />
         </div>
         <button
