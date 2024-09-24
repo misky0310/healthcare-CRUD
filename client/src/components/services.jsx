@@ -1,37 +1,20 @@
-import React, { useState } from 'react'
+
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import CreateServicesPage from './createServices'
+
+
 
 const ServicesPage = () => {
 
-  const [services, setServices] = useState([
-    {
-      "name": "General Consultation",
-      "description": "A standard medical consultation with a general physician to diagnose and treat common illnesses.",
-      "price": 500
-    },
-    {
-      "name": "Blood Test",
-      "description": "Comprehensive blood test to check various health markers, including cholesterol, sugar levels, and complete blood count.",
-      "price": 300
-    },
-    {
-      "name": "X-ray Imaging",
-      "description": "Diagnostic X-ray imaging to assess injuries, fractures, or abnormalities in bones and tissues.",
-      "price": 1000
-    },
-    {
-      "name": "Vaccination",
-      "description": "Administration of vaccines for protection against infectious diseases like flu, hepatitis, or COVID-19.",
-      "price": 200
-    },
-    {
-      "name": "Physical Therapy Session",
-      "description": "One-hour session with a licensed physical therapist to assist with rehabilitation and pain management.",
-      "price": 750
-    }
-  ])
+  const [services, setServices] = useState([])
 
+  useEffect(() => {
+    fetch('http://localhost:5001/services')
+    .then((res) => res.json())
+    .then((data) => {
+      setServices(data)
+    })
+  }, [])
 
   return (
     <section className='bg-slate-800'>
@@ -46,6 +29,10 @@ const ServicesPage = () => {
               <h2 className='text-xl font-bold'>{service.name}</h2>
               <p className='text-gray-600'>{service.description}</p>
               <p className='text-gray-800 font-bold mt-2'>Rs {service.price}</p>
+              <div className='flex gap-5 pt-5'>
+                <Link to={`/update/${service._id}`} className='border-2 rounded-md border-blue-500 text-sm px-5 py-2 bg-blue-700 text-white hover:bg-blue-900'>Edit</Link>
+                <button className='border-2 rounded-md border-red-500 text-sm px-5 py-2 bg-red-700 text-white hover:bg-red-900'>Delete</button>
+              </div>
             </div>
           </div>
         ))}

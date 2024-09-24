@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 const CreateServicesPage = () => {
 
-
+  const navigate=useNavigate();
   const [name,setName]=useState('');
   const [description,setDescription]=useState('');
   const [price,setPrice]=useState('');
@@ -21,6 +21,9 @@ const CreateServicesPage = () => {
         price,
       }),
     });
+
+    navigate('/');
+
   }
 
   return (
