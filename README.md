@@ -1,4 +1,3 @@
-# Project Title
 
 A simple healthcare CRUD project
 
