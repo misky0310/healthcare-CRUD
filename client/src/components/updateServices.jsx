@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import LoadingSpinner from "../components/loading.jsx";
 const UpdateServicesPage = () => {
 
   const { id } = useParams(); //get the id from the url
@@ -8,14 +9,18 @@ const UpdateServicesPage = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:5001/service/${id}`)
+    fetch(`https://healthcare-crud.onrender.com/service/${id}`)
     .then((res) => res.json())
     .then((data)=> {
       setName(data.name);
       setDescription(data.description);
       setPrice(data.price);
+    })
+    .finally(() => {
+      setLoading(false);
     })
   },[id])
 
@@ -24,7 +29,7 @@ const UpdateServicesPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch(`http://localhost:5001/update/${id}`,{
+    fetch(`https://healthcare-crud.onrender.com/update/${id}`,{
       method:'PUT',
       headers:{
         'Content-Type':'application/json'
@@ -45,7 +50,10 @@ const UpdateServicesPage = () => {
       <h1 className="text-2xl font-semibold text-gray-900 dark:text-white text-center pt-10">
         Update Service
       </h1>
-      <form onSubmit={handleSubmit} className="flex flex-col items-center w-full h-screen pt-10">
+      {loading && (
+        <LoadingSpinner/>
+    )}
+      {!loading && <form onSubmit={handleSubmit} className="flex flex-col items-center w-full h-screen pt-10">
         <div className="mb-5 md:w-1/3 w-1/2">
           <label
             htmlFor="name"
@@ -102,7 +110,7 @@ const UpdateServicesPage = () => {
         >
           Update
         </button>
-      </form>
+      </form>}
     </>
   );
 };

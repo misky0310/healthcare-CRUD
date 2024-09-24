@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
+
+import LoadingSpinner from "../components/loading.jsx";
 
 const ServicesPage = () => {
   const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const fetchServices = () => {
-    fetch("http://localhost:5001/services")
+    fetch("https://healthcare-crud.onrender.com/services")
       .then((res) => res.json())
       .then((data) => {
         setServices(data);
+      })
+      .then(() => {
+        setLoading(false);
       });
   };
 
@@ -17,13 +24,20 @@ const ServicesPage = () => {
   }, []);
 
   const handleDelete = (e) => {
+  
     const id = e.target.id;
-    fetch(`http://localhost:5001/service/${id}`, {
+
+    setLoading(true);
+    
+    fetch(`https://healthcare-crud.onrender.com/service/${id}`, {
       method: "DELETE",
     })
       .then((res)=> {
         if(res.ok)
           fetchServices();
+      })
+      .then(() => {
+        navigate('/');
       })
   };
 
@@ -33,15 +47,18 @@ const ServicesPage = () => {
       <h1 className="text-center text-white text-3xl pt-5 pb-3">
         OUR SERVICES
       </h1>
+      {loading &&(
+        <LoadingSpinner/>
+      )}
 
-      {services.length === 0 && (
+      {!loading && services.length === 0 && (
           <div className="pt-10">
             <p className="text-center text-xl text-white p-10 font-bold w-fit border-2 mx-auto">NO SERVICES AVAILABLE</p>
           </div>
         )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 p-5 w-fit">
-        {services.map((service, index) => (
+        {!loading && services.map((service, index) => (
           <div key={index}>
             <div className="bg-white p-5 rounded-lg shadow-lg h-[100%] hover:scale-110 hover:cursor-pointer">
               <h2 className="text-xl font-bold">{service.name}</h2>

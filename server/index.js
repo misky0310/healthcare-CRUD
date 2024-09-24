@@ -2,6 +2,11 @@ import cors from 'cors';
 import express from 'express';
 import  connectDB  from './utils/connectDB.js';
 import Services from './models/service.js';
+import { configDotenv } from 'dotenv';
+configDotenv();
+
+const PORT=process.env.PORT;
+
 
 const app=express();
 app.use(express.json());
@@ -9,8 +14,8 @@ app.use(cors());
 
 await connectDB();
 
-app.listen(5001, () => {
-    console.log('Server is running on port 5001');
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 })
 
 app.post('/create', async (req, res) => {

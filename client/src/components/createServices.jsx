@@ -1,20 +1,26 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+
+import LoadingSpinner from "../components/loading.jsx";
+
 const CreateServicesPage = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+  
     if(!name || !description || !price){
       toast.error("Please fill all the fields");
     }
 
-    fetch("http://localhost:5001/create", {
+    setLoading(true);
+
+    fetch("https://healthcare-crud.onrender.com/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -34,7 +40,9 @@ const CreateServicesPage = () => {
       <h1 className="text-2xl font-semibold text-gray-900 dark:text-white text-center pt-10">
         Add a Service
       </h1>
-      <form
+      {loading && <LoadingSpinner />}
+      
+      {!loading && <form
         onSubmit={handleSubmit}
         className="flex flex-col items-center w-full h-screen pt-10"
       >
@@ -88,7 +96,7 @@ const CreateServicesPage = () => {
         >
           Add
         </button>
-      </form>
+      </form>}
     </>
   );
 };
